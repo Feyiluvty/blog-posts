@@ -15,11 +15,15 @@
 			$date = date('Y/m/d H/i/s');
 			$deleted = $_POST['deleted'];
 			$authorID = $_POST['authorID'];
-			$img = $_POST['img'];
+			$img = $_FILES['img']['name'];
+			$Target="upload/".basename($img);
+			
+			
 			$db = mysqli_connect('localhost', 'feyiblog', 'feyisayo', 'post');
 
 			$sql = "INSERT INTO posts (title, content, date, deleted, authorID, img) VALUE ('$title', '$content', '$date', '$deleted', '$authorID', '$img')";
 			mysqli_query($db, $sql) or die("Error:" .mysqli_error($db));
+			move_uploaded_file($_FILES['img']['tmp_name'],$Target);
 			echo "Blog entry posted";
 			// var_dump($_POST);
 		}
@@ -27,6 +31,7 @@
 	} else {
 		header('location: login.php');
 		die();
+
 	}
 
 
@@ -73,9 +78,9 @@
 		?>
 			
 		</div>
-		<div class="input-group" style="text-align: center; margin-left: 13%">
-			<label>Choose a file to upload:</label>
-<input type="file" name="img" value="100000" />
+		<div class="input-group" style="text-align: center; margin-left: 83px; border: 5px; border-radius: 5px solid #800080"">
+			<label>Choose an image to upload:</label><br>
+<input type="file" name="img" src="http://placehold.it/750x300" alt="" />
 		</div>
 
 		

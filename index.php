@@ -10,6 +10,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/blog-home.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery-slim.min.js"></script>
 </head>
 <body>
 	 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -43,7 +44,9 @@
 
         <!-- Blog Entries Column -->
         <div class="col-md-8">
-        	<?php
+
+	<?php
+        	
 	include_once("conn.php");
 	$sql ="SELECT DISTINCT * FROM posts ORDER BY id DESC";
 	$result = mysqli_query($db, $sql);
@@ -52,34 +55,64 @@
 		$content = $row["content"];
 		$date = $row['date'];
 		$img = $row['img'];
+		$id = $row['id'];
+		$comment = $row['comment'];
+		$commentdate= $row['commentdate'];
+		include_once("com.php");
 
 	
+	
 		echo'
-          <h1 class="my-4">
+         <a href="post.php?post_id='.$id.'"    style="text-decoration:none"> 
+         <h1 class="my-4" style="color: black">
           '.$title.'
-	</h1>
+	</h1></a>
 
           <div class="card mb-4">
 
-           <img class="card-img-top" src="http://placehold.it/750x300" alt='.$img.'>         <div class="card-body">
-             <p class="card-text">'.$content.'</p>
+          <a href="post.php?post_id='.$id.'">
+           <img class="card-img-top"  alt="'.$img.'" src="upload/'.$img.'"  />  </a>       <div class="card-body">
+             <p class="card-text" >'.$content.'</p>
+             <a href="post.php?post_id="'.$id.'"" class="btn btn-primary">View full post &rarr;</a>
 			<h5 style="color: #3a5fcd"> '.$date.'</h5 >
-              <!-- <a href="#">Start Bootstrap</a> -->
             </div>
-          </div>
+ 			
+   <div class="input-group" style="text-align: center">
+			<div class="input-group" style="text-align: center">
+			
+		</div> 
+		</div>
+			
+		</div>
 
+			<button type="submit" name="post" class="btn">Post comment</button>
+   
+    
+ 
 		<br/>';
 	}
 		?>
+		  <div class="card my-4">
+            <h5 class="card-header">Side Widget</h5>
+            <div class="card-body">
+              You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+            </div>
+          </div>
+      <!-- /.row -->
+
+      		</div>
+      	</div>
+      </div>
 		<a href="login.php">Admin</a>
 
 
 		 <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container-fluid">
-        <p class="m-0 text-center text-white">Copyright &copy; BOSSLADY 2018</p>
+    <footer class="py-5 bg-dark col-lg-12" style="width: 100% !important">
+      <div class="container">
+        <p class="m-0 text-center text-white" >Copyright &copy; BOSSLADY 2018</p>
       </div>
       
+
     </footer>
 
       <script src="vendor/jquery/jquery.min.js"></script>
